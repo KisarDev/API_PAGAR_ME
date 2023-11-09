@@ -7,12 +7,11 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Sua API Django REST",
+      title="API de Transação bancária.",
       default_version='v1',
-      description="Descrição da sua API",
+      description="Essa API simula transações de débito e crédito e efetua calculos para os diferentes modos.",
       terms_of_service="https://www.suaapi.com/terms/",
-      contact=openapi.Contact(email="contato@suaapi.com"),
-      license=openapi.License(name="Sua Licença"),
+      contact=openapi.Contact(email="cesarmartins.pro@gmail.com"),
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),

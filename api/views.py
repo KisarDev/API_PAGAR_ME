@@ -21,6 +21,9 @@ def register_user(request):
 @swagger_auto_schema(method='post', request_body=TransactionSerializer)
 @api_view(['POST'])
 def register_transaction(request):
+    """- Registra novas transações
+       - Realiza operações para diferentes métodos de pagamento.
+    """
     serializer = TransactionSerializer(data=request.data)
     value = request.data['payment_value']
     method = request.data['payment_method'] 
@@ -40,6 +43,7 @@ def register_transaction(request):
 @swagger_auto_schema(method='get')
 @api_view(['GET'])
 def list_transaction(request):
+    """ - Lista todas transações efetuadas"""
     transaction = Transaction.objects.all()
     serializer = TransactionSerializer(transaction, many=True)
 
@@ -49,6 +53,7 @@ def list_transaction(request):
 @swagger_auto_schema(method='get')
 @api_view(['GET'])
 def funds(request):
+    """ - Exibe o total na conta disponivel para usar (oque foi passado no débito), e oque foi passado no crédito a receber no futuro"""
     serializer =  PayablesSerializer(Payables.objects.all(), many=True)
     serializer = serializer.data
     list_debit = []

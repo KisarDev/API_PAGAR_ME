@@ -4,7 +4,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework import status
 
-from api.models import Transaction
+from api.models import Payables, Transaction
 from core import settings
 
 class UserSerializer(serializers.ModelSerializer):
@@ -40,6 +40,14 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TransactionSerializer(serializers.ModelSerializer):
+    card_number = serializers.CharField(default='2222-2222-2222-2222')
+
     class Meta:
         model = Transaction
+        fields = '__all__'
+   
+
+class PayablesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payables
         fields = '__all__'

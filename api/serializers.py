@@ -24,6 +24,10 @@ class UserSerializer(serializers.ModelSerializer):
         if len(attrs) < 6:
             raise serializers.ValidationError('Senha menor que 6 digitos', code=status.HTTP_400_BAD_REQUEST)
         return attrs
+    def validate_card_number(self, attrs):
+        if len(attrs) > 18:
+            raise serializers.ValidationError('O cartão não existe pois possue mais de 18 caracteres, incluindo separadores', code=status.HTTP_400_BAD_REQUEST)
+        return attrs
 
     def create(self, validated_data):
         user = User(

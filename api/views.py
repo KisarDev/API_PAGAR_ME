@@ -27,12 +27,20 @@ def register_transaction(request):
     """
     serializer = TransactionSerializer(data=request.data)
     
+    
+    
+   
+    
     if serializer.is_valid():
-        value = request.data['payment_value']
-        method = request.data['payment_method'] 
+        card_number = request.data['card_number']
+        if len(card_number)!=19:
+            return Response({"error":"Cartão invalido"}, status=status.HTTP_400_BAD_REQUEST)
         last_four_digits = request.data['card_number'][-4:]
         masked_card_number = '*' * 15 + last_four_digits
-        request.data['card_number'] = masked_card_number
+        serializer.validated_data['card_number'] = masked_card_number
+        value = request.data['payment_value']
+        method = request.data['payment_method']
+        
 
         Transaction.value_return(value=value, method=method)
         serializer.save()
